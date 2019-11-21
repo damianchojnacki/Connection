@@ -1,6 +1,6 @@
-#Connection - PDO and mysqli wrapper
+# Connection - PDO and mysqli wrapper
 
-###Installation
+### Installation
 To utilize this class, first import one of the Connection class into your project, and require it.
 ```
 require_once ('ConnectionPDO.php');
@@ -12,7 +12,7 @@ require_once ('ConnectionMysqli.php');
 
 ---
 
-###Example use and difference between PDO:
+### Example use and difference between PDO:
 
 ```
 $conn = new ConnectionPDO('localhost', 'root', 'testdb');
@@ -43,14 +43,14 @@ $result = $result->fetchAll();
 
 ---
 
-###Methods available:
+### Methods available:
 `table`, `select`, `where`, `like`, `orderBy`, `groupBy`, `get`, `first`.
 
 Input data is automatically escaped (MYSQL Injection protection).
 
 ---
 
-###Fetching type:
+### Fetching type:
 For fetching type choice simply add a Fetch class as a get() argument.
 ```
 $result = $conn->get(new FetchObject);
@@ -63,7 +63,7 @@ Default fetching type is object.
 
 ---
 
-###Structure:
+### Structure:
 
 - Classes:
     - **ConnectionPDO** - PDO wrapper
@@ -79,5 +79,5 @@ Default fetching type is object.
     
 ---
     
-###License
+### License
 Connection is MIT licensed.
