@@ -1,6 +1,11 @@
 <?php
 
-require_once 'Connection.php';
+namespace Connection;
+
+use mysqli;
+use mysqli_sql_exception;
+
+require_once 'ConnectionTrait.php';
 
 //Simple mysqli wrapper coded by Damian Chojnacki
 //Example usage:
@@ -10,7 +15,7 @@ require_once 'Connection.php';
 
 class ConnectionMysqli extends mysqli implements ConnectionInterface {
 
-    use Connection;
+    use ConnectionTrait;
 
     public function __construct($host, $username, $database, $password = ''){
         parent::__construct($host, $username, $password, $database);

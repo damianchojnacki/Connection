@@ -1,5 +1,6 @@
 <?php
 
+namespace Connection;
 
 class ConnectionHelper {
     public static function removeWhiteSpace($string) {

@@ -1,5 +1,6 @@
 <?php
 
+namespace Connection;
 
 interface ConnectionInterface {
     public function get(Fetch $fetch = null);
