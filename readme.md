@@ -1,4 +1,4 @@
-﻿#Connection - PDO and mysqli wrapper
+#Connection - PDO and mysqli wrapper
 
 ###Installation
 To utilize this class, first import one of the Connection class into your project, and require it.
