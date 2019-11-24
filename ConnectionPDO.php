@@ -5,7 +5,7 @@ namespace Connection;
 use PDO;
 use PDOException;
 
-require_once 'ConnectionTrait.php';
+require_once 'Connection.php';
 
 //Simple PDO wrapper coded by Damian Chojnacki
 //Example usage:
@@ -13,9 +13,7 @@ require_once 'ConnectionTrait.php';
 //$connection->table('test_table')->get(); <- returns all records from test_table
 //$connection->table('test_table')->select('example_column')->get(); <- returns example_column's from test_table
 
-class ConnectionPDO implements ConnectionInterface {
-
-    use ConnectionTrait;
+class ConnectionPDO extends Connection {
 
     private $escaped = [];
 

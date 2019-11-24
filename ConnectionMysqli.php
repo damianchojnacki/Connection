@@ -4,9 +4,8 @@ namespace Connection;
 
 use mysqli;
 use mysqli_sql_exception;
-use PDO;
 
-require_once 'ConnectionTrait.php';
+require_once 'Connection.php';
 
 //Simple mysqli wrapper coded by Damian Chojnacki
 //Example usage:
@@ -14,9 +13,7 @@ require_once 'ConnectionTrait.php';
 //$connection->table('test_table')->get(); <- returns all records from test_table
 //$connection->table('test_table')->select('example_column')->get(); <- returns example_column's from test_table
 
-class ConnectionMysqli implements ConnectionInterface {
-
-    use ConnectionTrait;
+class ConnectionMysqli extends Connection {
 
     public function __construct($host, $username, $database, $password = ''){
         $this->wrapper = @new mysqli($host, $username, $password, $database);
