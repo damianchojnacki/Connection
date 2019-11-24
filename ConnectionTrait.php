@@ -9,8 +9,7 @@ require_once 'ConnectionHelper.php';
 require_once 'ConnectionInterface.php';
 
 trait ConnectionTrait {
-    private $query = null, $select = 'SELECT *', $from, $where = null, $group = null, $order = null, $fetchDefault = FetchObject::class;
-    public $wrapper;
+    private $query = null, $select = 'SELECT *', $from, $where = null, $group = null, $order = null, $fetchDefault = FetchObject::class, $wrapper;
 
     public function table($table){
         $this->from = ' FROM `' . $table . '`';
