@@ -65,18 +65,12 @@ Default fetching type is object.
 
 ### Structure:
 
-- Classes:
-    - **ConnectionPDO** - PDO wrapper
-    - **ConnectionMysqli** - mysqli wrapper
-    - **ConnectionHelper** - helper class
-    - **Fetch, FetchArray, FetchObject** - fetch type (array or object)
+- **Connection** - abstract class
+- **ConnectionPDO** - PDO wrapper
+- **ConnectionMysqli** - mysqli wrapper
+- **ConnectionHelper** - helper class
+- **Fetch, FetchArray, FetchObject** - fetch type (array or object)
 
-- Traits:
-    - **ConnectionTrait**
-
-- Interfaces:
-    - **ConnectionInterface**
-    
 ---
     
 ### License
