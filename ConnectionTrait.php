@@ -10,8 +10,7 @@ require_once 'ConnectionInterface.php';
 
 trait ConnectionTrait {
     private $query = null, $select = 'SELECT *', $from, $where = null, $group = null, $order = null, $fetchDefault = FetchObject::class;
-
-
+    public $wrapper;
 
     public function table($table){
         $this->from = ' FROM `' . $table . '`';
@@ -31,7 +30,7 @@ trait ConnectionTrait {
     public function where($column, $value = null, $join = 'AND',  $operator= 'OR') {
         if (empty($this->where)) $join = 'WHERE';
 
-        $where = $this->escapeAll($column, $value);
+        $where = $this->prepare($column, $value);
 
         if (is_array($column)) {
             $where = implode(' ' . $operator . ' ', $where);
@@ -45,7 +44,7 @@ trait ConnectionTrait {
     }
 
     public function like($column, $exp, $operator = 'AND') {
-        $where = $this->escapeAll($column, $exp);
+        $where = $this->prepare($column, $exp);
 
         empty($this->where) && $operator = 'WHERE';
 

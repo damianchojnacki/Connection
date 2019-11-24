@@ -13,7 +13,7 @@ require_once 'ConnectionTrait.php';
 //$connection->table('test_table')->get(); <- returns all records from test_table
 //$connection->table('test_table')->select('example_column')->get(); <- returns example_column's from test_table
 
-class ConnectionPDO extends PDO implements ConnectionInterface {
+class ConnectionPDO implements ConnectionInterface {
 
     use ConnectionTrait;
 
@@ -28,11 +28,15 @@ class ConnectionPDO extends PDO implements ConnectionInterface {
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-
-        parent::__construct($dsn, $username, $password, $options);
+        try {
+            $this->wrapper = new PDO($dsn, $username, $password, $options);
+        } catch(PDOException $e){
+            echo $e->getMessage();
+            exit();
+        }
     }
 
-    public function escapeAll($column, $value = null) {
+    public function prepare($column, $value = null) {
         if (is_array($column)) {
             $keys = [];
             $where = [];
@@ -69,7 +73,7 @@ class ConnectionPDO extends PDO implements ConnectionInterface {
         is_null($fetch) && $fetch = new $this->fetchDefault;
 
         try {
-            $response = $this->prepare($this->query);
+            $response = $this->wrapper->prepare($this->query);
             $response->execute($this->escaped);
             $result = $fetch($response, get_class($this));
         } catch (PDOException $e) {

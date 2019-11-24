@@ -4,6 +4,7 @@ namespace Connection;
 
 use mysqli;
 use mysqli_sql_exception;
+use PDO;
 
 require_once 'ConnectionTrait.php';
 
@@ -13,23 +14,22 @@ require_once 'ConnectionTrait.php';
 //$connection->table('test_table')->get(); <- returns all records from test_table
 //$connection->table('test_table')->select('example_column')->get(); <- returns example_column's from test_table
 
-class ConnectionMysqli extends mysqli implements ConnectionInterface {
+class ConnectionMysqli implements ConnectionInterface {
 
     use ConnectionTrait;
 
     public function __construct($host, $username, $database, $password = ''){
-        parent::__construct($host, $username, $password, $database);
-        $this->set_charset('utf8mb4');
+        $this->wrapper = @new mysqli($host, $username, $password, $database);
 
         try{
-            if ($this->connect_errno != 0) throw new mysqli_sql_exception($this->connect_error);
+            if ($this->wrapper->connect_errno != 0) throw new mysqli_sql_exception($this->wrapper->connect_error);
         } catch(mysqli_sql_exception $e){
             echo $e->getMessage();
             exit();
         }
     }
 
-    public function escapeAll($column, $value = null) {
+    public function prepare($column, $value = null) {
         if (is_array($column)) {
             $where = [];
 
@@ -52,7 +52,7 @@ class ConnectionMysqli extends mysqli implements ConnectionInterface {
     }
 
     public function escape($value) {
-        return $this->real_escape_string($value);
+        return $this->wrapper->real_escape_string($value);
     }
 
     public function get(Fetch $fetch = null) {
@@ -62,7 +62,7 @@ class ConnectionMysqli extends mysqli implements ConnectionInterface {
 
         $result = [];
 
-        if ($response = $this->query($this->query)) {
+        if ($response = $this->wrapper->query($this->query)) {
             while ($obj = $fetch($response, get_class($this)))
                 $result[] = $obj;
         }
